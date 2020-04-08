@@ -1,0 +1,21 @@
+buildscript {
+    apply from: "$rootDir/dependencies.gradle"
+
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        classpath plugin.gradle
+        classpath plugin.kotlin
+    }
+}
+
+allprojects {
+
+    repositories {
+        google()
+        jcenter()
+    }
+}

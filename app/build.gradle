@@ -1,0 +1,13 @@
+apply plugin: 'com.android.application'
+apply from: "$rootDir/.dna/module-kotlin-android.gradle"
+
+android.defaultConfig.applicationId = "com.delbel.fluent.testapp"
+
+dependencies {
+    implementation presentation.appcompat
+    implementation presentation.material
+
+    implementation project(':permission:domain')
+    implementation project(':permission:gateway')
+    implementation project(':permission:presentation')
+}
