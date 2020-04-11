@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Location Tracker</string>
+
+    <string name="app_permission_rationalize_title">We really need that permission</string>
+    <string name="app_permission_rationalize_message">With out your location the application cannot work</string>
+    <string name="app_permission_rationalize_give">Give</string>
+    <string name="app_permission_rationalize_exit">Exit</string>
 </resources>

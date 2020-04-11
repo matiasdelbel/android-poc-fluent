@@ -1,0 +1,14 @@
+apply plugin: 'com.android.library'
+
+apply from: "$rootDir/.dna/module-kotlin-android.gradle"
+
+dependencies {
+    implementation core.fluent
+    implementation core.fluentRx
+    implementation core.rxJava
+
+    implementation injection.dagger
+    kapt injection.daggerCompiler
+
+    implementation presentation.appcompat
+}

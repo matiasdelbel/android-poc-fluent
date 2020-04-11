@@ -1,9 +1,3 @@
 include ':app'
 
-include ':permission:domain'
-include ':permission:gateway'
-include ':permission:presentation'
-
-project(':permission:domain').projectDir = new File(rootDir, 'permission/domain')
-project(':permission:gateway').projectDir = new File(rootDir, 'permission/gateway')
-project(':permission:presentation').projectDir = new File(rootDir, 'permission/presentation')
+include ':permission'
