@@ -1,7 +1,10 @@
 package com.delbel.fluent.testapp.view
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.delbel.dagger.rx.MainScheduler
@@ -90,11 +93,19 @@ class MainScreen : AppCompatActivity(), PermissionView {
         AlertDialog.Builder(this)
             .setTitle(R.string.app_permission_rationalize_title)
             .setMessage(R.string.app_permission_rationalize_message)
-            .setPositiveButton(R.string.app_permission_rationalize_give) { _, _ -> requestPermission() }
+            .setPositiveButton(R.string.app_permission_rationalize_give) { _, _ -> goToPermissionScreen() }
             .setNegativeButton(R.string.app_permission_rationalize_exit) { _, _ -> finish() }
             .setCancelable(false)
             .show()
     }
+
+    private fun goToPermissionScreen() =
+        with(Intent(ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$packageName"))) {
+            addCategory(Intent.CATEGORY_DEFAULT)
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
+            startActivity(this)
+        }
 
     companion object {
         private const val PERMISSION_LOCATION_REQUEST_CODE = 3189
