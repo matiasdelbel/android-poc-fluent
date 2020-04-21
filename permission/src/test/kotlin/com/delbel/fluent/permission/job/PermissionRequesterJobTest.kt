@@ -8,6 +8,7 @@ import com.delbel.fluent.permission.model.RequireRationalePermissionException
 import com.delbel.fluent.permission.state.PermissionAlreadyGranted
 import com.delbel.fluent.permission.state.PermissionState
 import com.delbel.fluent.permission.state.RequireRationalePermission
+import com.delbel.fluent.permission.state.WaitingPermissionResult
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import io.fluent.StateType
@@ -56,7 +57,7 @@ class PermissionRequesterJobTest {
         PermissionRequesterJob(store, requester).bind(input).test()
         val observer = store.stateChanges().test()
 
-        observer.assertValue { it.type is StateType.Success }
+        observer.assertValue { it.type is WaitingPermissionResult }
     }
 
     private fun mockPermissionRequest(activity: Activity) = mock<PermissionRequest> {
