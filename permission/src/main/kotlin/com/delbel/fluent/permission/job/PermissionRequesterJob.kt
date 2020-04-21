@@ -8,6 +8,7 @@ import com.delbel.fluent.permission.model.RequireRationalePermissionException
 import com.delbel.fluent.permission.state.PermissionAlreadyGranted
 import com.delbel.fluent.permission.state.PermissionState
 import com.delbel.fluent.permission.state.RequireRationalePermission
+import com.delbel.fluent.permission.state.WaitingPermissionResult
 import io.fluent.StateType
 import io.fluent.rx.RxJob
 import io.fluent.rx.RxStore
@@ -35,5 +36,5 @@ internal class PermissionRequesterJob @Inject constructor(
         else -> store.update { transitionTo(type = StateType.Error) }
     }
 
-    private fun notifySuccess() = store.update { transitionTo(type = StateType.Success) }
+    private fun notifySuccess() = store.update { transitionTo(type = WaitingPermissionResult()) }
 }
