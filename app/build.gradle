@@ -1,13 +1,26 @@
 apply plugin: 'com.android.application'
 apply from: "$rootDir/.dna/module-kotlin-android.gradle"
 
-android.defaultConfig.applicationId = "com.delbel.fluent.testapp"
+android {
+
+    defaultConfig.applicationId = "com.delbel.fluent.testapp"
+
+    viewBinding.enabled = true
+}
 
 dependencies {
+    implementation project(':permission')
+
+    implementation core.fluent
+    implementation core.fluentRx
+    implementation core.rxJava
+
+    implementation injection.dagger
+    implementation injection.daggerSupport
+    implementation injection.daggerRx
+    kapt injection.daggerProcessor
+    kapt injection.daggerCompiler
+
     implementation presentation.appcompat
     implementation presentation.material
-
-    implementation project(':permission:domain')
-    implementation project(':permission:gateway')
-    implementation project(':permission:presentation')
 }
