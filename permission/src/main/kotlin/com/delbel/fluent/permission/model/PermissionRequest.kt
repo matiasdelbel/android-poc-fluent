@@ -1,6 +1,6 @@
 package com.delbel.fluent.permission.model
 
-import android.Manifest.permission.ACCESS_COARSE_LOCATION
+import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.app.Activity
 
 open class PermissionRequest(
@@ -10,4 +10,4 @@ open class PermissionRequest(
 )
 
 class LocationPermissionRequest(screen: Activity, requestCode: Int) :
-    PermissionRequest(screen, requestCode, permission = ACCESS_COARSE_LOCATION)
+    PermissionRequest(screen, requestCode, permission = ACCESS_FINE_LOCATION)

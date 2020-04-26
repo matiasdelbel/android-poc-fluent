@@ -1,2 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.delbel.fluent.location" />
+    package="com.delbel.fluent.location">
+
+    <application>
+
+        <service
+            android:name="com.delbel.fluent.location.ForegroundLocationService"
+            android:enabled="true"
+            android:exported="false"/>
+
+    </application>
+
+</manifest>

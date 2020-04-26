@@ -22,6 +22,8 @@ dependencies {
     kapt injection.daggerProcessor
     kapt injection.daggerCompiler
 
+    implementation location.googleProvider
+
     implementation presentation.appcompat
     implementation presentation.material
 }

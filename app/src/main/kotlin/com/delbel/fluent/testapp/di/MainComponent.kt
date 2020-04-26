@@ -2,6 +2,7 @@ package com.delbel.fluent.testapp.di
 
 import android.app.Application
 import com.delbel.dagger.rx.di.DaggerRxModule
+import com.delbel.fluent.location.di.LocationModule
 import com.delbel.fluent.permission.di.PermissionModule
 import com.delbel.fluent.testapp.MainApplication
 import dagger.BindsInstance
@@ -14,6 +15,8 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class,
         DaggerRxModule::class,
         PermissionModule::class,
+        LocationModule::class,
+        NotificationModule::class,
         ScreenModule::class]
 )
 @Singleton
