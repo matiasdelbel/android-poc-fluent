@@ -23,6 +23,7 @@ dependencies {
     kapt injection.daggerCompiler
 
     implementation location.googleProvider
+    implementation location.room
 
     implementation presentation.appcompat
     implementation presentation.material

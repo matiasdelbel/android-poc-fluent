@@ -12,7 +12,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat.getSystemService
 import javax.inject.Inject
 
-class NotificationCreator @Inject constructor(private val destination: Intent) {
+internal class NotificationCreator @Inject constructor(private val destination: Intent) {
 
     private lateinit var notificationManager: NotificationManager
 
