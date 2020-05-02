@@ -6,5 +6,10 @@ dependencies {
     implementation core.rxJava
 
     implementation injection.dagger
+    implementation injection.daggerSupport
+    kapt injection.daggerProcessor
     kapt injection.daggerCompiler
+
+    implementation location.googleProvider
+    implementation location.jetPackCore
 }

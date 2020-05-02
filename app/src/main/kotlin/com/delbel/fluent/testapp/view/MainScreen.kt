@@ -1,13 +1,17 @@
 package com.delbel.fluent.testapp.view
 
 import android.annotation.SuppressLint
+import android.content.ComponentName
 import android.content.Intent
+import android.content.ServiceConnection
 import android.net.Uri
 import android.os.Bundle
+import android.os.IBinder
 import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.delbel.dagger.rx.MainScheduler
+import com.delbel.fluent.location.ForegroundLocationService
 import com.delbel.fluent.permission.di.PermissionStore
 import com.delbel.fluent.permission.model.LocationPermissionRequest
 import com.delbel.fluent.permission.model.PermissionRequest
@@ -41,6 +45,22 @@ class MainScreen : AppCompatActivity(), PermissionView {
     private val permissionRequestDispatcher = PublishSubject.create<PermissionRequest>()
     private val permissionResultDispatcher = PublishSubject.create<PermissionResult>()
 
+    private var foregroundLocationService: ForegroundLocationService? = null
+
+    private val foregroundOnlyServiceConnection = object : ServiceConnection {
+
+        override fun onServiceConnected(name: ComponentName, service: IBinder) {
+            val binder = service as ForegroundLocationService.LocalBinder
+            foregroundLocationService = binder.service
+
+            dispatchPermissionRequest()
+        }
+
+        override fun onServiceDisconnected(name: ComponentName) {
+            foregroundLocationService = null
+        }
+    }
+
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -53,9 +73,16 @@ class MainScreen : AppCompatActivity(), PermissionView {
         store.stateChanges().observeOn(mainScheduler).subscribe { bind(newState = it) }
     }
 
-    override fun onResume() {
-        super.onResume()
-        dispatchPermissionRequest()
+    override fun onStart() {
+        super.onStart()
+
+        val serviceIntent = Intent(this, ForegroundLocationService::class.java)
+        bindService(serviceIntent, foregroundOnlyServiceConnection, BIND_AUTO_CREATE)
+    }
+
+    override fun onStop() {
+        unbindService(foregroundOnlyServiceConnection)
+        super.onStop()
     }
 
     override fun onDestroy() {
@@ -76,7 +103,7 @@ class MainScreen : AppCompatActivity(), PermissionView {
     override fun bind(newState: PermissionState) {
         when (newState.type) {
             is RequireRationalePermission -> showRationalPermissionDialog()
-            is PermissionAlreadyGranted, is PermissionGranted -> TODO()
+            is PermissionAlreadyGranted, is PermissionGranted ->  foregroundLocationService?.subscribeToUpdates()
             is PermissionDenied -> finish()
         }
     }
@@ -84,6 +111,11 @@ class MainScreen : AppCompatActivity(), PermissionView {
     override fun requestPermission() = permissionRequestDispatcher
 
     override fun permissionResult() = permissionResultDispatcher
+
+    override fun finish() {
+        foregroundLocationService?.unsubscribeToUpdates()
+        super.finish()
+    }
 
     private fun showRationalPermissionDialog() {
         if (isFinishing) return

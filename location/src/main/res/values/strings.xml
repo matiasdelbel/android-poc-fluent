@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notification_title">We are the big brother</string>
+    <string name="notification_content">Tracking all your steps</string>
+    <string name="action_open_app">Open</string>
+</resources>
