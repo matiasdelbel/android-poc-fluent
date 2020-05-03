@@ -11,7 +11,7 @@ import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.delbel.dagger.rx.MainScheduler
-import com.delbel.fluent.location.ForegroundLocationService
+import com.delbel.fluent.location.service.ForegroundLocationService
 import com.delbel.fluent.permission.di.PermissionStore
 import com.delbel.fluent.permission.model.LocationPermissionRequest
 import com.delbel.fluent.permission.model.PermissionRequest

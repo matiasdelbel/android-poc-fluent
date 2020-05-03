@@ -1,9 +1,16 @@
 apply plugin: 'com.android.application'
 apply from: "$rootDir/.dna/module-kotlin-android.gradle"
 
+def keys = new Properties()
+file("$rootDir/keys.properties").withInputStream { keys.load(it) }
+
 android {
 
-    defaultConfig.applicationId = "com.delbel.fluent.testapp"
+    defaultConfig {
+        applicationId = "com.delbel.fluent.testapp"
+
+        manifestPlaceholders = [googleMapKey: keys.getProperty("googleMapKey")]
+    }
 
     viewBinding.enabled = true
 }
@@ -27,4 +34,5 @@ dependencies {
 
     implementation presentation.appcompat
     implementation presentation.material
+    implementation presentation.map
 }

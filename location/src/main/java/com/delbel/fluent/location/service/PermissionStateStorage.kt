@@ -1,4 +1,4 @@
-package com.delbel.fluent.location
+package com.delbel.fluent.location.service
 
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
