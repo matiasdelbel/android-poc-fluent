@@ -6,18 +6,23 @@ import android.content.res.Configuration
 import android.os.Binder
 import android.os.IBinder
 import android.os.Looper
+import com.delbel.fluent.location.database.LocationDao
+import com.delbel.fluent.location.database.LocationDto
 import com.google.android.gms.location.*
 import dagger.android.AndroidInjection
 import io.reactivex.disposables.Disposable
+import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class ForegroundLocationService : Service() {
 
     @Inject
-    lateinit var permissionStateStorage: PermissionStateStorage
+    internal lateinit var locationDao: LocationDao
     @Inject
-    lateinit var notificationCreator: NotificationCreator
+    internal lateinit var permissionStateStorage: PermissionStateStorage
+    @Inject
+    internal lateinit var notificationCreator: NotificationCreator
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
@@ -34,7 +39,9 @@ class ForegroundLocationService : Service() {
     private val locationCallback = object : LocationCallback() {
 
         override fun onLocationResult(locationResult: LocationResult?) {
-            locationResult?.lastLocation?.let { TODO("store location in the DB") }
+            locationResult?.lastLocation?.let { locationDao.insert(
+                LocationDto(timestamp = Date(), latitude = it.latitude, longitude = it.longitude)
+            ) }
         }
     }
 
@@ -44,7 +51,7 @@ class ForegroundLocationService : Service() {
         AndroidInjection.inject(this)
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-        permissionStateObserver = permissionStateStorage.state.subscribe {
+        permissionStateObserver = permissionStateStorage.state().subscribe {
             configuration = configuration.copy(hasPermission = it)
         }
 

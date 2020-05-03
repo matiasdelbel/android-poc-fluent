@@ -16,7 +16,7 @@ import javax.inject.Singleton
         DaggerRxModule::class,
         PermissionModule::class,
         LocationModule::class,
-        NotificationModule::class,
+        NotificationIntentModule::class,
         ScreenModule::class]
 )
 @Singleton

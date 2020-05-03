@@ -7,7 +7,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class NotificationModule {
+class NotificationIntentModule {
 
     @Provides
     fun provideIntent(application: Application) = Intent(application, MainScreen::class.java)

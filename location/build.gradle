@@ -12,4 +12,8 @@ dependencies {
 
     implementation location.googleProvider
     implementation location.jetPackCore
+    implementation location.rxRoom
+    implementation location.room
+
+    kapt location.roomCompiler
 }
