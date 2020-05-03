@@ -1,4 +1,4 @@
-package com.delbel.fluent.location
+package com.delbel.fluent.location.service
 
 import android.app.Service
 import android.content.Intent
@@ -7,7 +7,7 @@ import android.os.Binder
 import android.os.IBinder
 import android.os.Looper
 import com.delbel.fluent.location.database.LocationDao
-import com.delbel.fluent.location.database.LocationDto
+import com.delbel.fluent.location.model.Location
 import com.google.android.gms.location.*
 import dagger.android.AndroidInjection
 import io.reactivex.disposables.Disposable
@@ -40,7 +40,7 @@ class ForegroundLocationService : Service() {
 
         override fun onLocationResult(locationResult: LocationResult?) {
             locationResult?.lastLocation?.let { locationDao.insert(
-                LocationDto(timestamp = Date(), latitude = it.latitude, longitude = it.longitude)
+                Location(timestamp = Date(), latitude = it.latitude, longitude = it.longitude)
             ) }
         }
     }

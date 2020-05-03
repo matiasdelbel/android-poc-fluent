@@ -1,4 +1,4 @@
-package com.delbel.fluent.location
+package com.delbel.fluent.location.service
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -10,6 +10,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat.getSystemService
+import com.delbel.fluent.location.R
 import javax.inject.Inject
 
 internal class NotificationCreator @Inject constructor(private val destination: Intent) {

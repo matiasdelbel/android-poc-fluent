@@ -6,7 +6,7 @@
     <application>
 
         <service
-            android:name="com.delbel.fluent.location.ForegroundLocationService"
+            android:name="com.delbel.fluent.location.service.ForegroundLocationService"
             android:enabled="true"
             android:exported="false"/>
 
